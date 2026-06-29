@@ -1,0 +1,26 @@
+package com.boot.plugin.service;
+
+import com.boot.plugin.bean.Order;
+import com.boot.plugin.mapper.OrderMapper;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
+
+/**
+ * @author panlf
+ * @date 2020/12/25
+ */
+@Service
+public class OrderService {
+    @Resource
+    private OrderMapper orderMapper;
+
+    public Order findById(long id){
+        return orderMapper.findById(id);
+    }
+
+    public List<Order> selectAll(){
+        return orderMapper.selectAll();
+    }
+}
