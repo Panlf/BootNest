@@ -10,6 +10,7 @@
   <name>BootNest</name>
     <modules>
         <module>boot-mybatis-plugin</module>
+        <module>boot-disruptor</module>
     </modules>
 
     <properties>
