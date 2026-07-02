@@ -12,6 +12,7 @@
         <module>boot-mybatis-plugin</module>
         <module>boot-disruptor</module>
         <module>boot-intercept</module>
+        <module>boot-scheduled</module>
     </modules>
 
     <properties>
