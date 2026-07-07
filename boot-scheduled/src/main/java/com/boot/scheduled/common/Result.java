@@ -1,7 +1,6 @@
 package com.boot.scheduled.common;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -10,16 +9,16 @@ import lombok.Data;
  * @author MiMoCode
  */
 @Data
-@ApiModel("统一响应结果")
+@Schema(description = "统一响应结果")
 public class Result<T> {
 
-    @ApiModelProperty("响应码: 200成功, 500失败")
+    @Schema(description = "响应码: 200成功, 500失败")
     private int code;
 
-    @ApiModelProperty("响应消息")
+    @Schema(description = "响应消息")
     private String message;
 
-    @ApiModelProperty("响应数据")
+    @Schema(description = "响应数据")
     private T data;
 
     private Result() {

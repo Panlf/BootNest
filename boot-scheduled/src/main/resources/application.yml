@@ -1,7 +1,4 @@
 spring:
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
   datasource:
     url: jdbc:mysql://127.0.0.1:3306/schedule?useUnicode=true&characterEncoding=UTF-8&useSSL=false&serverTimezone=GMT%2B8&allowPublicKeyRetrieval=true
     username: ${DB_USERNAME:root}
@@ -20,6 +17,14 @@ spring:
       naming:
         physical-strategy: org.springframework.boot.orm.jpa.hibernate.SpringPhysicalNamingStrategy
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+  dynamic:
+    thread-pool:
+      enabled: true
+      monitor:
+        enabled: true
+        interval: 5
+        log:
+          enabled: true
 
 server:
   port: 8080
@@ -28,3 +33,9 @@ logging:
   level:
     com.boot.scheduled: INFO
     root: WARN
+
+springdoc:
+  swagger-ui:
+    path: /doc.html
+  api-docs:
+    path: /v3/api-docs

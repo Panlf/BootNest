@@ -9,8 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
+import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Data;
 
 /**
@@ -25,23 +24,23 @@ import lombok.Data;
 @Entity
 @Table(name = "task_list")
 @Data
-@ApiModel("定时任务")
+@Schema(description = "定时任务")
 public class TaskList {
 
     /** 主键ID，数据库自增 */
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @ApiModelProperty(value = "主键ID", required = false, example = "1")
+    @Schema(description = "主键ID", example = "1")
     private Integer id;
 
     /** cron调度表达式 */
     @Column(name = "cron")
-    @ApiModelProperty(value = "Cron表达式", required = true, example = "*/5 * * * * ?")
+    @Schema(description = "Cron表达式", required = true, example = "*/5 * * * * ?")
     private String cron;
 
     /** 任务类全限定名，需实现Runnable接口 */
     @Column(name = "clazz")
-    @ApiModelProperty(value = "任务全类名", required = true, example = "com.boot.scheduled.job.MyRunnable")
+    @Schema(description = "任务全类名", required = true, example = "com.boot.scheduled.job.MyRunnable")
     private String clazz;
 
     /**
@@ -53,17 +52,17 @@ public class TaskList {
      * </ul>
      */
     @Column(name = "status")
-    @ApiModelProperty(value = "任务状态: 0-删除, 1-启动, 2-停止", required = false, example = "1")
+    @Schema(description = "任务状态: 0-删除, 1-启动, 2-停止", example = "1")
     private Integer status;
 
     /** 任务名称，用于展示和搜索 */
     @Column(name = "taskname")
-    @ApiModelProperty(value = "任务名称", required = true, example = "任务一")
+    @Schema(description = "任务名称", required = true, example = "任务一")
     private String taskname;
 
     /** 创建时间，新增任务时自动设置 */
     @Column(name = "createtime")
-    @ApiModelProperty(value = "创建时间", required = false, example = "2024-01-01 12:00:00")
+    @Schema(description = "创建时间", example = "2024-01-01 12:00:00")
     private Date createtime;
 
     /**
@@ -74,6 +73,6 @@ public class TaskList {
      * </ul>
      */
     @Column(name = "allow_concurrent")
-    @ApiModelProperty(value = "是否允许并发执行: 1-允许, 0-不允许", required = false, example = "0")
+    @Schema(description = "是否允许并发执行: 1-允许, 0-不允许", example = "0")
     private Integer allowConcurrent = 1;
 }

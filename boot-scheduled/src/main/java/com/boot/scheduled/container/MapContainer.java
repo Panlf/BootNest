@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ScheduledFuture;
+import java.util.concurrent.Executor;
 
 import org.springframework.scheduling.concurrent.ThreadPoolTaskScheduler;
 import org.springframework.scheduling.support.CronTrigger;
@@ -31,10 +32,13 @@ import lombok.extern.slf4j.Slf4j;
 public class MapContainer {
 
     private final ThreadPoolTaskScheduler threadPoolTaskScheduler;
+    private final Executor asyncExecutor;
     private final Map<Integer, TaskListDto> taskRegistry = new ConcurrentHashMap<>();
 
-    public MapContainer(ThreadPoolTaskScheduler threadPoolTaskScheduler) {
+    public MapContainer(ThreadPoolTaskScheduler threadPoolTaskScheduler,
+                        @org.springframework.beans.factory.annotation.Qualifier("asyncExecutor") Executor asyncExecutor) {
         this.threadPoolTaskScheduler = threadPoolTaskScheduler;
+        this.asyncExecutor = asyncExecutor;
     }
 
     /**
@@ -185,7 +189,7 @@ public class MapContainer {
             scheduledTask.setParams(params != null ? params : new HashMap<>());
             scheduledTask.setForceExecution(forceExec);
         }
-        threadPoolTaskScheduler.execute((Runnable) task);
+        asyncExecutor.execute((Runnable) task);
         log.info("手动触发任务执行, id={}, forceExec={}, params={}", id, forceExec, params);
         return dto;
     }
